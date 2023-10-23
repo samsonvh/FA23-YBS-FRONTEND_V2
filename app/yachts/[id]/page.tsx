@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import "photoswipe/dist/photoswipe.css";
-import cruiseData from "@/data/cruise";
+// import cruiseData from "@/data/cruise";
+import { getYachtDetails } from "@/app/api/yachts";
 import Header11 from "@/components/header/header-11";
 import Overview from "@/components/cruise-single/Overview";
 import TopBreadCrumb from "@/components/cruise-single/TopBreadCrumb";
@@ -14,15 +15,26 @@ import CallToActions from "@/components/common/CallToActions";
 import DefaultFooter from "@/components/footer/default";
 import MapPropertyFinder from "@/components/cruise-single/MapPropertyFinder";
 import GalleryCruiseSlider from "@/components/cruise-single/GalleryCruiseSlider";
+import { useState, useEffect } from "react";
 
-export const metadata = {
-  title: "Cruise Single || GoTrip - Travel & Tour React NextJS Template",
-  description: "GoTrip - Travel & Tour React NextJS Template",
-};
+const CruiseSingleV1Dynamic = async ({ params }: { params: any }) => {
+  let yachtDetails;
+  try {
+    console.log(params);
 
-const CruiseSingleV1Dynamic = ({ params }) => {
+    // Ensure that params.id is defined before fetching data
+    if (!params) {
+      console.log(params);
+      throw new Error("Invalid id");
+    }
+
+    yachtDetails = await getYachtDetails(params);
+    console.log(yachtDetails);
+  } catch (error) {
+    console.error("Error fetching yacht details:", error.message);
+  }
   const id = params.id;
-  const cruise = cruiseData.find((item) => item.id == id);
+  // const cruise = cruiseData.find((item) => item.id == id);
 
   return (
     <>
@@ -41,10 +53,10 @@ const CruiseSingleV1Dynamic = ({ params }) => {
         <div className="container">
           <div className="row justify-between items-end">
             <div className="col-auto">
-              <h1 className="text-26 fw-600">{cruise?.title}</h1>
+              {/* <h1 className="text-26 fw-600">{cruise?.title}</h1> */}
               <div className="d-flex x-gap-5 items-center pt-5">
                 <i className="icon-location-2 text-16 text-light-1" />
-                <div className="text-15 text-light-1">{cruise?.location}</div>
+                {/* <div className="text-15 text-light-1">{cruise?.location}</div> */}
                 <button
                   data-x-click="mapFilter"
                   className="text-15 text-blue-1 underline"
@@ -87,16 +99,16 @@ const CruiseSingleV1Dynamic = ({ params }) => {
         <div className="container">
           <div className="row y-gap-30">
             <div className="col-xl-8">
-              <GalleryCruiseSlider />
+              <GalleryCruiseSlider params={yachtDetails} />
               {/* End gallery grid wrapper */}
 
-              <Overview />
+              <Overview params={yachtDetails} />
               {/* End Overview */}
             </div>
             {/* End .col-xl-8 */}
 
             <div className="col-xl-4">
-              <SidebarRight cruise={cruise} />
+              {/* <SidebarRight cruise={cruise} /> */}
             </div>
             {/* End .col-xl-4 */}
           </div>

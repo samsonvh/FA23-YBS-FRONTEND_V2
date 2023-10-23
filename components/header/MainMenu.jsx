@@ -18,7 +18,7 @@ import { useState } from "react";
 
 const MainMenu = ({ style = "" }) => {
   const pathname = usePathname();
-  const [isActiveParent, setIsActiveParent] = useState(false)
+  const [isActiveParent, setIsActiveParent] = useState(false);
 
   return (
     <nav className="menu js-navList">
@@ -47,7 +47,13 @@ const MainMenu = ({ style = "" }) => {
         </li>
         {/* End home page menu */}
 
-        <li className={isActiveParent ? "menu-item-has-children -has-mega-menu current":'menu-item-has-children -has-mega-menu'}>
+        <li
+          className={
+            isActiveParent
+              ? "menu-item-has-children -has-mega-menu current"
+              : "menu-item-has-children -has-mega-menu"
+          }
+        >
           <a href="#">
             <span className="mr-10">Categories</span>
             <i className="icon icon-chevron-sm-down" />
@@ -136,7 +142,11 @@ const MainMenu = ({ style = "" }) => {
         </li> */}
 
         <li className={pathname === "/contact" ? "current" : ""}>
-          <Link href="/contact">Contact</Link>
+          <Link href="/contact">Contacts</Link>
+        </li>
+
+        <li className={pathname === "/login" ? "current" : ""}>
+          <Link href="/login">Login</Link>
         </li>
       </ul>
     </nav>

@@ -1,5 +1,4 @@
-
-'use client'
+"use client";
 
 import React, { useRef, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
@@ -9,17 +8,8 @@ import { Thumbs, Navigation } from "swiper";
 import "swiper/css/thumbs";
 import Image from "next/image";
 
-const GalleryCruiseSlider = () => {
+const GalleryCruiseSlider = ({ params }: { params: any }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  const galleryImage = [
-    "/img/cruises/6.png",
-    "/img/cruises/1.png",
-    "/img/cruises/2.png",
-    "/img/cruises/3.png",
-    "/img/cruises/4.png",
-    "/img/cruises/5.png",
-  ];
 
   return (
     <div className="cruiseSlider">
@@ -39,7 +29,7 @@ const GalleryCruiseSlider = () => {
               lazy={true}
               loop={true}
             >
-              {galleryImage.map((item, i) => (
+              {params.imageURL.map((item, i) => (
                 <SwiperSlide key={i}>
                   <Item
                     width={451}
@@ -85,7 +75,7 @@ const GalleryCruiseSlider = () => {
           modules={[Thumbs]}
           spaceBetween={12}
         >
-          {galleryImage.map((item, i) => (
+          {params.imageURL.map((item, i) => (
             <SwiperSlide
               key={i}
               className="cruiseSlider-slides__item  rounded-4"

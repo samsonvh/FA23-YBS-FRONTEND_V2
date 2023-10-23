@@ -158,7 +158,7 @@ const home_9 = () => {
           <div className="row y-gap-20 justify-center text-center">
             <div className="col-auto">
               <div className="sectionTitle -md">
-                <h2 className="sectionTitle__title">Recommended Cruise</h2>
+                <h2 className="sectionTitle__title">Recommended Tour</h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
                   Interdum et malesuada fames ac ante ipsum
                 </p>

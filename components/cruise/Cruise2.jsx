@@ -1,13 +1,41 @@
-
-'use client'
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import Slider from "react-slick";
-import cruiseData from "../../data/cruise";
+// import cruiseData from "../../data/cruise";
 import isTextMatched from "../../utils/isTextMatched";
+import { getAllRoutes } from "@/app/api/routes";
+import { useState, useEffect } from "react";
 
 const Cruise2 = () => {
+  const [yachtList, setYachtList] = useState([]);
+  const [pageCount, setPageCount] = useState();
+  const [pageIndex, setPageIndex] = useState();
+  const [pageSize, setPageSize] = useState();
+  const [totalItem, setTotalItem] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllRoutes();
+        setYachtList(data.data);
+        setPageCount(data.pageCount);
+        setPageIndex(data.pageIndex);
+        setPageSize(data.pageSize);
+        setTotalItem(data.totalItem);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log(yachtList);
+  }, [yachtList]);
+
   var settings = {
     dots: true,
     infinite: true,
@@ -72,7 +100,7 @@ const Cruise2 = () => {
   return (
     <>
       <Slider {...settings}>
-        {cruiseData.slice(0, 3).map((item) => (
+        {yachtList.slice(0, 3).map((item) => (
           <div
             key={item?.id}
             data-aos="fade"
@@ -90,7 +118,7 @@ const Cruise2 = () => {
                     nextArrow={<Arrow type="next" />}
                     prevArrow={<Arrow type="prev" />}
                   >
-                    {item?.slideImg?.map((slide, i) => (
+                    {/* {item?.slideImg?.map((slide, i) => (
                       <div className="cardImage ratio ratio-6:5" key={i}>
                         <div className="cardImage__content">
                           <Image
@@ -102,7 +130,7 @@ const Cruise2 = () => {
                           />
                         </div>
                       </div>
-                    ))}
+                    ))} */}
                   </Slider>
 
                   <div className="cardImage__wishlist">
@@ -139,32 +167,36 @@ const Cruise2 = () => {
                   {item?.ship}
                 </div>
                 <h4 className="cruiseCard__title text-dark-1 text-18 lh-16 fw-500">
-                  <span>{item?.title}</span>
+                  <span>{item?.name}</span>
                 </h4>
                 <p className="text-light-1 lh-14 text-14 mt-5" />
                 <div className="row y-gap-10 justify-between items-center">
                   <div className="col-auto">
                     <div className="text-14 text-dark-1 fw-500">
-                      Sailing Date
+                      Start point:
                     </div>
-                    <div className="text-14 text-light-1">{item?.date}</div>
+                    <div className="text-14 text-light-1">
+                      {item?.beginning}
+                    </div>
                   </div>
                   <div className="col-auto">
-                    <div className="text-14 text-dark-1 fw-500">Departs</div>
-                    <div className="text-14 text-light-1">{item.departs}</div>
+                    <div className="text-14 text-dark-1 fw-500">End point:</div>
+                    <div className="text-14 text-light-1">
+                      {item.destination}
+                    </div>
                   </div>
-                  <div className="col-auto">
+                  {/* <div className="col-auto">
                     <div className="text-14 text-dark-1 fw-500">
                       Ports ({item.portsNumber})
                     </div>
                     <div className="text-14 text-light-1">
                       {item?.portsName}...
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 {/* End .row */}
 
-                <div className="row y-gap-20 justify-between items-center pt-5">
+                {/* <div className="row y-gap-20 justify-between items-center pt-5">
                   <div className="col-auto">
                     <div className="d-flex items-center">
                       <div className="icon-star text-yellow-1 text-10 mr-5" />
@@ -184,7 +216,7 @@ const Cruise2 = () => {
                       </span>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/* End .row */}
               </div>
             </Link>
