@@ -42,7 +42,7 @@ const GalleryCruiseSlider = ({ params }: { params: any }) => {
                         width={451}
                         height={375}
                         src={item}
-                        ref={ref}
+                        ref={ref as React.RefObject<HTMLImageElement>}
                         onClick={open}
                         alt="large slide"
                       />
