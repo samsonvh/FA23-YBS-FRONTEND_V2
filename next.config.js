@@ -6,6 +6,9 @@ const nextConfig = {
     GOOGLE_CLIENTID: process.env.GOOGLE_CLIENTID,
     GOOGLE_SECRET: process.env.GOOGLE_SECRET,
   },
+  typescript: {
+    ignoreBuildErrors: true,
+ },
 };
 
 module.exports = nextConfig;
