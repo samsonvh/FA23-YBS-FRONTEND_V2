@@ -28,7 +28,7 @@ const Header1 = () => {
     <>
       {" "}
       <header
-        className={`header mt-20  ${navbar ? "is-sticky bg-dark-1" : ""}`}
+        className={`header mt-40  ${navbar ? "is-sticky bg-dark-1" : ""}`}
       >
         <div className="header__container container">
           <div className="row justify-between items-center">

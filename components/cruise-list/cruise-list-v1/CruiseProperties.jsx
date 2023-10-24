@@ -1,36 +1,16 @@
-"use client";
+
+'use client'
 
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-// import yachtList from "../../../data/cruise";
-import { getAllYachts } from "@/app/api/yachts";
-import { useState, useEffect } from "react";
-
+import cruiseData from "../../../data/cruise";
 import Link from "next/link";
 
 const CruiseProperties = () => {
-  const [yachtList, setYachtList] = useState([]);
-
-  const fetchData = async () => {
-    try {
-      const data = await getAllYachts();
-      setYachtList(data.data);
-      setPageCount(data.pageCount);
-      setPageIndex(data.pageIndex);
-      setPageSize(data.pageSize);
-      setTotalItem(data.totalItem);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <>
-      {yachtList.slice(0, 5).map((item) => (
+      {cruiseData.slice(0, 5).map((item) => (
         <div
           className="col-12"
           key={item?.id}
@@ -51,7 +31,7 @@ const CruiseProperties = () => {
                         }}
                         navigation={true}
                       >
-                        {item?.imageURL?.map((slide, i) => (
+                        {item?.slideImg?.map((slide, i) => (
                           <SwiperSlide key={i}>
                             <div className="ratio ratio-1:1">
                               <div className="cardImage__content">
@@ -83,26 +63,24 @@ const CruiseProperties = () => {
               {/* End .col-auto */}
 
               <div className="col-md">
-                {/* <div className="text-14 text-light-1">{item?.ship}</div> */}
+                <div className="text-14 text-light-1">{item?.ship}</div>
                 <h3 className="text-18 lh-16 fw-500 mt-5">
-                  {item?.name}
-                  <br className="md:d-none" />
+                  {item?.title}
+                  <br className="md:d-none" /> Mediterranean
                 </h3>
                 <div className="row y-gap-15 pt-30">
                   <div className="col-auto">
-                    <div className="text-14">Maximum Guests</div>
-                    <div className="text-14 text-light-1">
-                      {item?.maximumGuestLimit}
-                    </div>
+                    <div className="text-14">Sailing Date</div>
+                    <div className="text-14 text-light-1">{item?.date}</div>
                   </div>
                   <div className="col-auto">
-                    <div className="text-14">Cabin Number(s)</div>
-                    <div className="text-14 text-light-1">{item?.cabin}</div>
+                    <div className="text-14">Departs</div>
+                    <div className="text-14 text-light-1">{item?.departs}</div>
                   </div>
                   <div className="col-auto">
-                    <div className="text-14">Crew Number(s)</div>
+                    <div className="text-14">Ports ({item?.portsNumber})</div>
                     <div className="text-14 text-light-1">
-                      {item?.totalCrew}
+                      {item?.portsName}...
                     </div>
                   </div>
                 </div>
@@ -110,7 +88,7 @@ const CruiseProperties = () => {
               {/* End col-md */}
 
               <div className="col-md-auto text-right md:text-left">
-                {/* <div className="row x-gap-10 y-gap-10 justify-end items-center md:justify-start">
+                <div className="row x-gap-10 y-gap-10 justify-end items-center md:justify-start">
                   <div className="col-auto">
                     <i className="icon-star text-yellow-1 text-10" />
                   </div>
@@ -122,14 +100,14 @@ const CruiseProperties = () => {
                       {item?.numberOfReviews} reviews
                     </div>
                   </div>
-                </div> */}
-                {/* <div className="text-14 text-light-1 mt-40">From</div>
+                </div>
+                <div className="text-14 text-light-1 mt-40">From</div>
                 <div className="text-22 lh-12 fw-600 mt-5">
                   US${item?.price}
                 </div>
-                <div className="text-14 text-light-1 mt-5">per adult</div> */}
+                <div className="text-14 text-light-1 mt-5">per adult</div>
                 <Link
-                  href={`/yachts/${item.id}`}
+                  href={`/cruise-single/${item.id}`}
                   className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-24"
                 >
                   View Detail <div className="icon-arrow-top-right ml-15" />

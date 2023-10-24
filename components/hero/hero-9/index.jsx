@@ -9,17 +9,17 @@ import { Parallax } from "react-parallax";
 const index = () => {
   return (
     <>
-      <section className="masthead -type-9 md:tw-h-screen ">
+      <section className="masthead -type-9">
         <div className="masthead-slider js-masthead-slider-9">
           <Swiper
             modules={[Navigation]}
-            loop={false}
+            loop={true}
             navigation={{
               nextEl: ".hero9-next-active",
               prevEl: ".hero9-prev-active",
             }}
           >
-            <SwiperSlide className="tw-h-screen py-120 d-flex flex-wrap align-items-center">
+            <SwiperSlide>
               <div className="masthead__bg bg-dark-3">
                 <Parallax
                   strength={300}
@@ -43,12 +43,12 @@ const index = () => {
                         TOUR EXPERIENCE
                       </div>
                       <h1
-                        className="text-80 lg:text-60 sm:text-24 text-white"
+                        className="text-80 lg:text-60 sm:text-40 text-white"
                         data-aos="fade-up"
                         data-aos-delay="300"
                       >
                         Find The Best Cruise
-                        <br /> For You
+                        <br className="md:d-none" /> For You
                       </h1>
                     </div>
                   </div>

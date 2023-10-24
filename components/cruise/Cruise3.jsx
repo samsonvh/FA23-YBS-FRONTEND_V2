@@ -1,41 +1,14 @@
-"use client";
+
+'use client'
 
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-// import yachtData from "../../data/cruise";
+import cruiseData from "../../data/cruise";
 import isTextMatched from "../../utils/isTextMatched";
-import { getAllYachts } from "@/app/api/yachts";
-import { useState, useEffect } from "react";
+
 const Cruise3 = () => {
-  const [yachtList, setYachtList] = useState([]);
-  const [pageCount, setPageCount] = useState();
-  const [pageIndex, setPageIndex] = useState();
-  const [pageSize, setPageSize] = useState();
-  const [totalItem, setTotalItem] = useState();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getAllYachts();
-        setYachtList(data.data);
-        setPageCount(data.pageCount);
-        setPageIndex(data.pageIndex);
-        setPageSize(data.pageSize);
-        setTotalItem(data.totalItem);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    console.log(yachtList);
-  }, [yachtList]);
-
   return (
     <>
       <Swiper
@@ -66,7 +39,7 @@ const Cruise3 = () => {
           },
         }}
       >
-        {yachtList.map((item) => (
+        {cruiseData.map((item) => (
           <SwiperSlide key={item.id}>
             <div
               key={item?.id}
@@ -74,7 +47,7 @@ const Cruise3 = () => {
               data-aos-delay={item?.delayAnimation}
             >
               <Link
-                href={`/yachts/${item.id}`}
+                href={`/cruise-single/${item.id}`}
                 className="cruiseCard -type-1 rounded-4 "
               >
                 <div className="cruiseCard__image position-relative">
@@ -89,7 +62,7 @@ const Cruise3 = () => {
                           }}
                           navigation={true}
                         >
-                          {item?.imageURL?.map((slide, i) => (
+                          {item?.slideImg?.map((slide, i) => (
                             <SwiperSlide key={i}>
                               <Image
                                 width={300}
@@ -106,7 +79,7 @@ const Cruise3 = () => {
                     {/* End cartImage */}
 
                     <div className="cardImage__wishlist">
-                      <button className="button -blue-1 b g-white size-30 rounded-full shadow-2">
+                      <button className="button -blue-1 bg-white size-30 rounded-full shadow-2">
                         <i className="icon-heart text-12" />
                       </button>
                     </div>
@@ -153,40 +126,36 @@ const Cruise3 = () => {
                 {/* End .tourCard__image */}
 
                 <div className="cruiseCard__content mt-10">
-                  {/* <div className="text-14 lh-14 text-light-1 mb-5">
+                  <div className="text-14 lh-14 text-light-1 mb-5">
                     {item?.ship}
-                  </div> */}
+                  </div>
                   <h4 className="cruiseCard__title text-dark-1 text-18 lh-16 fw-500">
-                    <span>{item?.name}</span>
+                    <span>{item?.title}</span>
                   </h4>
                   <p className="text-light-1 lh-14 text-14 mt-5" />
                   <div className="row y-gap-10 justify-between items-center">
                     <div className="col-auto">
                       <div className="text-14 text-dark-1 fw-500">
-                        Maximum Guests
+                        Sailing Date
                       </div>
-                      <div className="text-14 text-light-1">
-                        {item?.maximumGuestLimit}
-                      </div>
+                      <div className="text-14 text-light-1">{item?.date}</div>
+                    </div>
+                    <div className="col-auto">
+                      <div className="text-14 text-dark-1 fw-500">Departs</div>
+                      <div className="text-14 text-light-1">{item.departs}</div>
                     </div>
                     <div className="col-auto">
                       <div className="text-14 text-dark-1 fw-500">
-                        Cabin Number(s)
-                      </div>
-                      <div className="text-14 text-light-1">{item.cabin}</div>
-                    </div>
-                    <div className="col-auto">
-                      <div className="text-14 text-dark-1 fw-500">
-                        Crew Number(s)
+                        Ports ({item.portsNumber})
                       </div>
                       <div className="text-14 text-light-1">
-                        {item?.totalCrew}
+                        {item?.portsName}...
                       </div>
                     </div>
                   </div>
                   {/* End .row */}
 
-                  {/* <div className="row y-gap-20 justify-between items-center pt-5">
+                  <div className="row y-gap-20 justify-between items-center pt-5">
                     <div className="col-auto">
                       <div className="d-flex items-center">
                         <div className="icon-star text-yellow-1 text-10 mr-5" />
@@ -206,7 +175,7 @@ const Cruise3 = () => {
                         </span>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                   {/* End .row */}
                 </div>
               </Link>
@@ -215,33 +184,9 @@ const Cruise3 = () => {
         ))}
       </Swiper>
 
-      <div className="row y-gap-10 tw-justify-center items-center">
-        <div className="col-auto">
-          <div className="text-14 text-dark-1 fw-500">Total Pages:</div>
-          <div className="text-14 text-light-1">{pageCount}</div>
-        </div>
-        <div className="col-auto">
-          <div className="text-14 text-dark-1 fw-500">Current Page:</div>
-          <div className="text-14 text-light-1">{pageIndex}</div>
-        </div>
-        <div className="col-auto">
-          <div className="text-14 text-dark-1 fw-500">
-            Total Yachts Per Pages:
-          </div>
-          <div className="text-14 text-light-1">{pageSize}</div>
-        </div>
-        <div className="col-auto">
-          <div className="text-14 text-dark-1 fw-500">Total Yachts:</div>
-          <div className="text-14 text-light-1">{totalItem}</div>
-        </div>
-      </div>
-
       <div className="d-flex x-gap-15 items-center justify-center pt-40 sm:pt-20">
         <div className="col-auto">
-          <button
-            onClick={(e) => e.preventDefault()}
-            className="d-flex items-center text-24 arrow-left-hover js-popular-car-prev"
-          >
+          <button className="d-flex items-center text-24 arrow-left-hover js-popular-car-prev">
             <i className="icon icon-arrow-left" />
           </button>
         </div>
@@ -253,10 +198,7 @@ const Cruise3 = () => {
         {/* End arrow pagination */}
 
         <div className="col-auto">
-          <button
-            onClick={(e) => e.preventDefault()}
-            className="d-flex items-center text-24 arrow-right-hover js-popular-car-next"
-          >
+          <button className="d-flex items-center text-24 arrow-right-hover js-popular-car-next">
             <i className="icon icon-arrow-right" />
           </button>
         </div>

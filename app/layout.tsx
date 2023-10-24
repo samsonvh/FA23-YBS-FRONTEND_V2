@@ -12,8 +12,7 @@ import "aos/dist/aos.css";
 import "../styles/index.scss";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
-import { getServerSession } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import NextAuthProvider from "@/components/NextAuthProvider";
 
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
@@ -43,12 +42,12 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <main>
-          <SessionProvider>
+          <NextAuthProvider>
             <Provider store={store}>
               {children}
               <SrollTop />
             </Provider>
-          </SessionProvider>
+          </NextAuthProvider>
         </main>
       </body>
     </html>

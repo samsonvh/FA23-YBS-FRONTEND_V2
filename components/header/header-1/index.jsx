@@ -1,5 +1,4 @@
-
-'use client'
+"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -7,9 +6,11 @@ import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
 import MobileMenu from "../MobileMenu";
+import { signOut, useSession } from "next-auth/react";
 
 const Header1 = () => {
   const [navbar, setNavbar] = useState(false);
+  const { data: session, status } = useSession();
 
   const changeBackground = () => {
     if (window.scrollY >= 10) {
@@ -68,20 +69,38 @@ const Header1 = () => {
                 {/* End language and currency selector */}
 
                 {/* Start btn-group */}
-                <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
-                  <Link
-                    href="/login"
-                    className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
-                  >
-                    Become An Expert
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
-                  >
-                    Sign In / Register
-                  </Link>
-                </div>
+                {session && session.user ? (
+                  <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
+                    <Link
+                      href="/login"
+                      className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
+                    >
+                      {session.user.name}
+                    </Link>
+                    <Link
+                      href="#"
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+                    >
+                      Sign Out
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
+                    <Link
+                      href="/login"
+                      className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
+                    >
+                      Become An Expert
+                    </Link>
+                    <Link
+                      href="/signup"
+                      className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+                    >
+                      Sign In / Register
+                    </Link>
+                  </div>
+                )}
                 {/* End btn-group */}
 
                 {/* Start mobile menu icon */}

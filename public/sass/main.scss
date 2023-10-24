@@ -47,10 +47,7 @@
 @import "./custom/custom-slick";
 @import "./custom/price-range-slider";
 @import "./custom/custom-next";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-html {
-    scroll-behavior: smooth;
-}
