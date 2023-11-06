@@ -71,24 +71,15 @@ const PopularDestinations = () => {
               key={item.id}
             >
               <div className="citiesCard__image ratio ratio-3:4">
-                {item?.imageURL?.map((slide, i) => (
-                  <div key={i}>
-                    <Image
-                      width={300}
-                      height={400}
-                      className="tw-h-full js-lazy"
-                      src={slide}
-                      alt="image"
-                    />
-                  </div>
-                ))}
-                {/* <Image
-                  width={300}
-                  height={400}
-                  src={item.imageURL}
-                  alt="image"
-                  className="js-lazy"
-                /> */}
+                <div>
+                  <Image
+                    width={300}
+                    height={400}
+                    className="tw- js-lazy"
+                    src={item.imageURL}
+                    alt="image"
+                  />
+                </div>
               </div>
               <div className="citiesCard__content d-flex flex-column justify-between text-center pt-30 pb-20 px-20">
                 <div className="citiesCard__bg" />

@@ -11,14 +11,24 @@ export async function middleware(request: NextRequest) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  const pathName = request.nextUrl.pathname;
-  switch (pathName) {
-    case "/tours":
-      if (session?.role == "COMPANY") {
-        console.log(pathName);
-        return NextResponse.redirect(new URL("/", request.url));
-      }
+  // const pathName = request.nextUrl.pathname;
+  if (request.nextUrl.pathname.startsWith("/admin")) {
+    if (session?.role != "ADMIN") {
+      return NextResponse.redirect(new URL("/404", request.url));
+    }
+    if (request.nextUrl.pathname === "/admin") {
+      return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+    }
   }
+  if (request.nextUrl.pathname.startsWith("/company")) {
+    if (session?.role != "COMPANY") {
+      return NextResponse.redirect(new URL("/404", request.url));
+    }
+    if (request.nextUrl.pathname === "/company") {
+      return NextResponse.redirect(new URL("/company/dashboard", request.url));
+    }
+  }
+
   console.log("session in middleware: ", session);
 }
 

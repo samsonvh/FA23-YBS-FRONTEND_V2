@@ -23,11 +23,11 @@ export const authOptions: NextAuthOptions = {
         body: JSON.stringify(account.id_token),
       }).then(async (response) => {
         const data = await response.json();
-        console.log("cc", data);
+        console.log(data);
         account.access_token = data.accessToken;
         account.refresh_token = data.refreshToken;
         user.name = data.userName;
-        user.image = data.imgUrl;
+        user.image = data.image;
         user.role = data.role;
       });
       return true;

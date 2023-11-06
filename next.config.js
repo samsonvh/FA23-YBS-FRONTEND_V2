@@ -8,7 +8,7 @@ const nextConfig = {
     SERVER: process.env.BACKEND_HOST + process.env.API_VERSION,
   },
   images: {
-    domains: ['firebasestorage.googleapis.com'],
+    domains: ['firebasestorage.googleapis.com', 'lh3.googleusercontent.com'],
   },
   typescript: {
     ignoreBuildErrors: true,

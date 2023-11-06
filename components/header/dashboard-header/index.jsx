@@ -1,16 +1,16 @@
-
-'use client'
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import MainMenu from "../MainMenu";
 import MobileMenu from "../MobileMenu";
+import { useSession } from "next-auth/react";
 
 const HeaderDashBoard = () => {
   const [navbar, setNavbar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const { data: session } = useSession();
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -95,13 +95,23 @@ const HeaderDashBoard = () => {
                 {/* End .row */}
 
                 <div className="pl-15">
-                  <Image
-                    width={50}
-                    height={50}
-                    src="/img/avatars/3.png"
-                    alt="image"
-                    className="size-50 rounded-22 object-cover"
-                  />
+                  {session?.user.image ? (
+                    <Image
+                      width={50}
+                      height={50}
+                      src={session.user.image}
+                      alt="image"
+                      className="size-50 rounded-22 object-cover"
+                    />
+                  ) : (
+                    <Image
+                      width={50}
+                      height={50}
+                      src="/img/avatars/feedback.jpg"
+                      alt="image"
+                      className="size-50 rounded-22 object-cover"
+                    />
+                  )}
                 </div>
 
                 <div className="d-none xl:d-flex x-gap-20 items-center pl-20">
