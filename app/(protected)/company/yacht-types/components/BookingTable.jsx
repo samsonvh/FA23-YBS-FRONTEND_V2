@@ -1,6 +1,6 @@
 "use client";
 import Pagination from "../../common/Pagination";
-import { getAllCompanies } from "@/app/api/companies";
+import { getAllYachtTypes } from "@/app/api/yachts";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,7 +9,7 @@ const BookingTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getAllCompanies();
+        const data = await getAllYachtTypes();
         setCompanyList(data.data);
       } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -24,9 +24,7 @@ const BookingTable = () => {
         <table className="table-4 -border-bottom col-12">
           <thead className="bg-light-2">
             <tr>
-              <th>Logo</th>
               <th>Name</th>
-              <th>Hotline</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -35,19 +33,7 @@ const BookingTable = () => {
           {companyList.map((item) => (
             <tbody key={item.id}>
               <tr>
-                <td className="pl-15">
-                  <Image
-                    width={50}
-                    height={50}
-                    src={item.logo}
-                    alt="image"
-                    className="size-50 rounded-22 object-cover"
-                  />
-                </td>
-
                 <td>{item.name}</td>
-
-                <td>{item.hotLine}</td>
 
                 <td>
                   <span
