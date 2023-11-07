@@ -1,10 +1,22 @@
-import Sidebar from "../common/Sidebar";
-import Header from "../../../../components/header/dashboard-header";
-import Footer from "../common/Footer";
-import BookingTable from "./components/BookingTable";
+import Sidebar from "../../common/Sidebar";
+import Header from "../../../../../components/header/dashboard-header";
+import Footer from "../../common/Footer";
+import Table from "./components/Table";
 import Link from "next/link";
+import { getDockDetails } from "@/app/api/docks";
+const Docks = async ({ params }: { params: any }) => {
+  let details;
+  try {
+    if (!params) {
+      console.log(params);
+      throw new Error("Invalid id");
+    }
 
-const Companies = () => {
+    details = await getDockDetails(params);
+    console.log(details);
+  } catch (error) {
+    console.error("Error fetching yacht details:", error.message);
+  }
   return (
     <>
       {/* End Page Title */}
@@ -25,26 +37,17 @@ const Companies = () => {
           <div className="dashboard__content bg-light-2">
             <div className="row y-gap-20 justify-between items-end pb-60 lg:pb-40 md:pb-32">
               <div className="col-auto">
-                <h1 className="text-30 lh-14 fw-600">All Routes</h1>
+                <h1 className="text-30 lh-14 fw-600">Docks Details</h1>
                 <div className="text-15 text-light-1">
                   Lorem ipsum dolor sit amet, consectetur.
                 </div>
               </div>
               {/* End .col-auto */}
-
-              <div className="col-auto">
-                <Link
-                  href="/admin/add-company"
-                  className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
-                >
-                  Add Company <div className="icon-arrow-top-right ml-15"></div>
-                </Link>
-              </div>
             </div>
             {/* End .row */}
 
             <div className="py-30 px-30 rounded-4 bg-white shadow-3">
-              <BookingTable />
+              <Table params={details} />
               {/* End tabs */}
             </div>
 
@@ -59,4 +62,4 @@ const Companies = () => {
   );
 };
 
-export default Companies;
+export default Docks;

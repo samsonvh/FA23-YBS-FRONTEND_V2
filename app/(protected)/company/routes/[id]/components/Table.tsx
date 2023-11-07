@@ -19,21 +19,13 @@ const Table = ({ params }: { params: any }) => {
         <table className="table-4 -border-bottom col-12">
           <thead className="bg-light-2">
             <tr>
-              <th>Avatar</th>
-              <th>UserName</th>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Date Of Birth</th>
-              <th>Phone Number</th>
-              <th>Nationality</th>
-              <th>Gender</th>
-              <th>Identity Number</th>
-              <th>Membership Start Date</th>
-              <th>Membership Expired Date</th>
-              <th>Member Since Date</th>
-              <th>Last Modified Date</th>
-              <th>Role</th>
+              <th>Images</th>
+              <th>Name</th>
+              <th>Beginning</th>
+              <th>Destination</th>
+              <th>Expected Starting Time</th>
+              <th>Expected Ending Time</th>
+              <th>Type</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -50,28 +42,19 @@ const Table = ({ params }: { params: any }) => {
                   className="size-50 rounded-22 object-cover"
                 /> */}
               </td>
-              <td className="text-blue-1 fw-500">{params.username}</td>
-              <td>{params.fullName}</td>
+              <td className="text-blue-1 fw-500">{params.name}</td>
+              <td>{params.beginning}</td>
 
-              <td>{params.email}</td>
-              <td>{params.address}</td>
-              <td>{params.dateOfBirth}</td>
-              <td>{params.phoneNumber}</td>
-              <td>{params.nationality}</td>
-              <td>{params.gender}</td>
-              <td>{params.identityNumber}</td>
-              <td>{formatDate(params.membershipStartDate)}</td>
-              <td>{formatDate(params.membershipExpiredDate)}</td>
-              <td>{formatDate(params.memberSinceDate)}</td>
-              <td>{params.lastModifiedDate}</td>
-              <td>{params.role}</td>
-
+              <td>{params.destination}</td>
+              <td>{params.expectedStartingTime}</td>
+              <td>{params.expectedEndingTime}</td>
+              <td>{params.type}</td>
               <td>
                 <span
                   className={`rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 ${
-                    params.status === "ACTIVE"
+                    params.status === "AVAILABLE"
                       ? "text-blue-1"
-                      : params.status === "INACTIVE"
+                      : params.status === "UNAVAILABLE"
                       ? "text-yellow-3"
                       : params.status === "BANNED"
                       ? "text-red-2"

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getMBSPackageDetails } from "@/app/api/membershipPakage";
 import Table from "./components/Table";
 
-const Member = async ({ params }: { params: any }) => {
+const MBSPackage = async ({ params }: { params: any }) => {
   let details;
   try {
     if (!params) {
@@ -40,7 +40,7 @@ const Member = async ({ params }: { params: any }) => {
           <div className="dashboard__content bg-light-2">
             <div className="row y-gap-20 justify-between items-end pb-60 lg:pb-40 md:pb-32">
               <div className="col-auto">
-                <h1 className="text-30 lh-14 fw-600"> Member Details</h1>
+                <h1 className="text-30 lh-14 fw-600"> MBS Package Details</h1>
                 <div className="text-15 text-light-1">
                   Lorem ipsum dolor sit amet, consectetur.
                 </div>
@@ -62,4 +62,4 @@ const Member = async ({ params }: { params: any }) => {
   );
 };
 
-export default Member;
+export default MBSPackage;

@@ -58,7 +58,7 @@ const BookingTable = () => {
                   <div className="row x-gap-10 y-gap-10 items-center">
                     <div className="col-auto">
                       <Link
-                        href={`/admin/companies/${item.id}`}
+                        href={`/company/docks/${item.id}`}
                         className="flex-center bg-light-2 rounded-4 size-35"
                       >
                         <i className="icon-eye text-16 text-light-1" />

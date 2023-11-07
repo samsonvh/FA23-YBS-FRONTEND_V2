@@ -26,9 +26,9 @@ const BookingTable = () => {
             <tr>
               <th>Image</th>
               <th>Name</th>
-              <th>Maximum Guest Limit</th>
-              <th>Total Crew</th>
-              <th>Cabin</th>
+              <th>Maximum Guest Limit(s)</th>
+              <th>Total Crew(s)</th>
+              <th>Cabin(s)</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -71,7 +71,7 @@ const BookingTable = () => {
                   <div className="row x-gap-10 y-gap-10 items-center">
                     <div className="col-auto">
                       <Link
-                        href={`/admin/companies/${item.id}`}
+                        href={`/company/yachts/${item.id}`}
                         className="flex-center bg-light-2 rounded-4 size-35"
                       >
                         <i className="icon-eye text-16 text-light-1" />
