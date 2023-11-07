@@ -36,13 +36,13 @@ const BookingTable = () => {
             <tbody key={item.id}>
               <tr>
                 <td className="pl-15">
-                  <Image
+                  {/* <Image
                     width={50}
                     height={50}
                     src={item.logo}
                     alt="image"
                     className="size-50 rounded-22 object-cover"
-                  />
+                  /> */}
                 </td>
 
                 <td>{item.name}</td>

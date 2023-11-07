@@ -15,7 +15,6 @@ import CallToActions from "@/components/common/CallToActions";
 import DefaultFooter from "@/components/footer/default";
 import MapPropertyFinder from "@/components/cruise-single/MapPropertyFinder";
 import GalleryCruiseSlider from "@/components/cruise-single/GalleryCruiseSlider";
-import { useState, useEffect } from "react";
 
 const CruiseSingleV1Dynamic = async ({ params }: { params: any }) => {
   let yachtDetails;
@@ -33,8 +32,6 @@ const CruiseSingleV1Dynamic = async ({ params }: { params: any }) => {
   } catch (error) {
     console.error("Error fetching yacht details:", error.message);
   }
-  const id = params.id;
-  // const cruise = cruiseData.find((item) => item.id == id);
 
   return (
     <>
