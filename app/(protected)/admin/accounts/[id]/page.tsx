@@ -10,16 +10,13 @@ import MemberTable from "./components/MemberTable";
 const Accounts = async ({ params }: { params: any }) => {
   let details;
   try {
-    console.log(params);
-
-    // Ensure that params.id is defined before fetching data
     if (!params) {
       console.log(params);
       throw new Error("Invalid id");
     }
 
     details = await getAccountDetails(params);
-    console.log(details);
+    console.log("status", details.status);
   } catch (error) {
     console.error("Error fetching yacht details:", error.message);
   }

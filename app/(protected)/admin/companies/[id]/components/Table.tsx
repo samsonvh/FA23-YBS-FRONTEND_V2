@@ -2,37 +2,23 @@
 import Pagination from "../../../common/Pagination";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-const MemberTable = ({ params }: { params: any }) => {
-  const formatDate = (dateString: string | undefined | null): string => {
-    if (!dateString) return "";
-
-    const options: Intl.DateTimeFormatOptions = {
-      day: "numeric",
-      month: "numeric",
-      year: "numeric",
-    };
-    return new Date(dateString).toLocaleDateString("en-GB", options);
-  };
+const Table = ({ params }: { params: any }) => {
   return (
     <>
       <div className="overflow-scroll scroll-bar-1">
         <table className="table-4 -border-bottom col-12">
           <thead className="bg-light-2">
             <tr>
-              <th>Avatar</th>
+              <th>Logo</th>
               <th>UserName</th>
-              <th>Full Name</th>
+              <th>Name</th>
               <th>Email</th>
               <th>Address</th>
-              <th>Date Of Birth</th>
-              <th>Phone Number</th>
-              <th>Nationality</th>
-              <th>Gender</th>
-              <th>Identity Number</th>
-              <th>Membership Start Date</th>
-              <th>Membership Start Date</th>
-              <th>Member Since Date</th>
-              <th>Last Modified Date</th>
+              <th>HotLine</th>
+              <th>Facebook</th>
+              <th>Instagram</th>
+              <th>LinkedIn</th>
+              <th>Contract Start Date</th>
               <th>Role</th>
               <th>Status</th>
               <th>Action</th>
@@ -51,19 +37,38 @@ const MemberTable = ({ params }: { params: any }) => {
                 /> */}
               </td>
               <td className="text-blue-1 fw-500">{params.username}</td>
-              <td>{params.fullName}</td>
-
+              <td>{params.name}</td>
               <td>{params.email}</td>
               <td>{params.address}</td>
-              <td>{params.dateOfBirth}</td>
-              <td>{params.phoneNumber}</td>
-              <td>{params.nationality}</td>
-              <td>{params.gender}</td>
-              <td>{params.identityNumber}</td>
-              <td>{formatDate(params.membershipStartDate)}</td>
-              <td>{formatDate(params.membershipExpiredDate)}</td>
-              <td>{formatDate(params.memberSinceDate)}</td>
-              <td>{params.lastModifiedDate}</td>
+              <td>{params.hotLine}</td>
+              <td>
+                {params?.facebookURL && (
+                  <Link
+                    className="tw-hover:text-blue-1"
+                    href={params?.facebookURL}
+                  >
+                    {params?.facebookURL}
+                  </Link>
+                )}
+              </td>
+              <td>
+                {params?.instagramURL && (
+                  <Link href={params?.instagramURL}>
+                    {params?.instagramURL}
+                  </Link>
+                )}
+              </td>
+              <td>
+                {params?.linkedInURL && (
+                  <Link href={params?.linkedInURL}>{params?.linkedInURL}</Link>
+                )}
+              </td>
+              <td>
+                {params.contractStartDate &&
+                  new Date(params.contractStartDate).toLocaleDateString(
+                    "en-GB"
+                  )}
+              </td>
               <td>{params.role}</td>
 
               <td>
@@ -106,4 +111,4 @@ const MemberTable = ({ params }: { params: any }) => {
   );
 };
 
-export default MemberTable;
+export default Table;

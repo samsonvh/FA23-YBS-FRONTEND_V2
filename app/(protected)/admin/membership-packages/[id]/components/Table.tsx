@@ -2,7 +2,7 @@
 import Pagination from "../../../common/Pagination";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-const MemberTable = ({ params }: { params: any }) => {
+const Table = ({ params }: { params: any }) => {
   const formatDate = (dateString: string | undefined | null): string => {
     if (!dateString) return "";
 
@@ -19,21 +19,13 @@ const MemberTable = ({ params }: { params: any }) => {
         <table className="table-4 -border-bottom col-12">
           <thead className="bg-light-2">
             <tr>
-              <th>Avatar</th>
-              <th>UserName</th>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Date Of Birth</th>
-              <th>Phone Number</th>
-              <th>Nationality</th>
-              <th>Gender</th>
-              <th>Identity Number</th>
-              <th>Membership Start Date</th>
-              <th>Membership Start Date</th>
-              <th>Member Since Date</th>
-              <th>Last Modified Date</th>
-              <th>Role</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Point</th>
+              <th>Description</th>
+              <th>Effective Duration</th>
+              <th>Creation Date</th>
+              <th>Last Modified Date </th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -41,30 +33,15 @@ const MemberTable = ({ params }: { params: any }) => {
           {/* End theade */}
           <tbody>
             <tr>
+              <td className="text-blue-1 fw-500">{params.name}</td>
               <td>
-                {/* <Image
-                  width={50}
-                  height={50}
-                  src={params.logo}
-                  alt="image"
-                  className="size-50 rounded-22 object-cover"
-                /> */}
+                {params.price} {params.moneyUnit}
               </td>
-              <td className="text-blue-1 fw-500">{params.username}</td>
-              <td>{params.fullName}</td>
-
-              <td>{params.email}</td>
-              <td>{params.address}</td>
-              <td>{params.dateOfBirth}</td>
-              <td>{params.phoneNumber}</td>
-              <td>{params.nationality}</td>
-              <td>{params.gender}</td>
-              <td>{params.identityNumber}</td>
-              <td>{formatDate(params.membershipStartDate)}</td>
-              <td>{formatDate(params.membershipExpiredDate)}</td>
-              <td>{formatDate(params.memberSinceDate)}</td>
-              <td>{params.lastModifiedDate}</td>
-              <td>{params.role}</td>
+              <td>{params.point}</td>
+              <td>{params.description}</td>
+              <td>{params.effectiveDuration} days</td>
+              <td>{formatDate(params.creationDate)}</td>
+              <td>{formatDate(params.lastModifiedDate)}</td>
 
               <td>
                 <span
@@ -106,4 +83,4 @@ const MemberTable = ({ params }: { params: any }) => {
   );
 };
 
-export default MemberTable;
+export default Table;

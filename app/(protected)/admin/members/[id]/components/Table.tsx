@@ -2,7 +2,7 @@
 import Pagination from "../../../common/Pagination";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-const MemberTable = ({ params }: { params: any }) => {
+const Table = ({ params }: { params: any }) => {
   const formatDate = (dateString: string | undefined | null): string => {
     if (!dateString) return "";
 
@@ -106,4 +106,4 @@ const MemberTable = ({ params }: { params: any }) => {
   );
 };
 
-export default MemberTable;
+export default Table;

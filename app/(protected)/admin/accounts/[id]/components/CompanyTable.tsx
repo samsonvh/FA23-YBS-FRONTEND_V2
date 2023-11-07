@@ -2,6 +2,7 @@
 import Pagination from "../../../common/Pagination";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 const CompanyTable = ({ params }: { params: any }) => {
   return (
     <>
@@ -9,8 +10,16 @@ const CompanyTable = ({ params }: { params: any }) => {
         <table className="table-4 -border-bottom col-12">
           <thead className="bg-light-2">
             <tr>
+              <th>Logo</th>
               <th>UserName</th>
+              <th>Name</th>
               <th>Email</th>
+              <th>Address</th>
+              <th>HotLine</th>
+              <th>Facebook</th>
+              <th>Instagram</th>
+              <th>LinkedIn</th>
+              <th>Contract Start Date</th>
               <th>Role</th>
               <th>Status</th>
               <th>Action</th>
@@ -19,10 +28,48 @@ const CompanyTable = ({ params }: { params: any }) => {
           {/* End theade */}
           <tbody>
             <tr>
+              <td>
+                {/* <Image
+                  width={50}
+                  height={50}
+                  src={params.logo}
+                  alt="image"
+                  className="size-50 rounded-22 object-cover"
+                /> */}
+              </td>
               <td className="text-blue-1 fw-500">{params.username}</td>
-
+              <td>{params.name}</td>
               <td>{params.email}</td>
-
+              <td>{params.address}</td>
+              <td>{params.hotLine}</td>
+              <td>
+                {params?.facebookURL && (
+                  <Link
+                    className="tw-hover:text-blue-1"
+                    href={params?.facebookURL}
+                  >
+                    {params?.facebookURL}
+                  </Link>
+                )}
+              </td>
+              <td>
+                {params?.instagramURL && (
+                  <Link href={params?.instagramURL}>
+                    {params?.instagramURL}
+                  </Link>
+                )}
+              </td>
+              <td>
+                {params?.linkedInURL && (
+                  <Link href={params?.linkedInURL}>{params?.linkedInURL}</Link>
+                )}
+              </td>
+              <td>
+                {params.contractStartDate &&
+                  new Date(params.contractStartDate).toLocaleDateString(
+                    "en-GB"
+                  )}
+              </td>
               <td>{params.role}</td>
 
               <td>
@@ -43,14 +90,6 @@ const CompanyTable = ({ params }: { params: any }) => {
 
               <td>
                 <div className="row x-gap-10 y-gap-10 paramss-center">
-                  <div className="col-auto">
-                    <Link
-                      href={`/admin/accounts/${params.id}`}
-                      className="flex-center bg-light-2 rounded-4 size-35"
-                    >
-                      <i className="icon-eye text-16 text-light-1" />
-                    </Link>
-                  </div>
                   <div className="col-auto">
                     <button className="flex-center bg-light-2 rounded-4 size-35">
                       <i className="icon-edit text-16 text-light-1" />
