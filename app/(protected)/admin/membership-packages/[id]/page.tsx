@@ -2,9 +2,9 @@ import Sidebar from "../../common/Sidebar";
 import Header from "../../../../../components/header/dashboard-header";
 import Footer from "../../common/Footer";
 import Link from "next/link";
-import { getMBSPackageDetails } from "@/app/api/membershipPakage";
+import { getMBSPackageDetails } from "@/app/api/MBSPakage";
 import Table from "./components/Table";
-
+import BackButton from "../../../../../components/button/BackButton";
 const MBSPackage = async ({ params }: { params: any }) => {
   let details;
   try {
@@ -41,8 +41,9 @@ const MBSPackage = async ({ params }: { params: any }) => {
             <div className="row y-gap-20 justify-between items-end pb-60 lg:pb-40 md:pb-32">
               <div className="col-auto">
                 <h1 className="text-30 lh-14 fw-600"> MBS Package Details</h1>
+                <BackButton />
                 <div className="text-15 text-light-1">
-                  Lorem ipsum dolor sit amet, consectetur.
+                  Lorem ipsum dolor sit amet, consectetur. BackButton
                 </div>
               </div>
               {/* End .col-auto */}

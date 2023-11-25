@@ -9,6 +9,8 @@ import MemberTable from "./components/MemberTable";
 
 const Accounts = async ({ params }: { params: any }) => {
   let details;
+  console.log("params", params);
+
   try {
     if (!params) {
       console.log(params);

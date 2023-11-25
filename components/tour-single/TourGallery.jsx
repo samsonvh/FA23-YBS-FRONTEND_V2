@@ -1,30 +1,28 @@
-
-
-'use client'
+"use client";
 
 import Image from "next/image";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import SidebarRight from "@/components/tour-single/SidebarRight";
 import Overview from "@/components/tour-single/Overview";
 import TourSnapShot from "@/components/tour-single/TourSnapShot";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-import ModalVideo from "react-modal-video"
+import ModalVideo from "react-modal-video";
 
-export default function TourGallery({tour}) {
-    const [isOpen, setOpen] = useState(false);
+export default function TourGallery({ tour }) {
+  const [isOpen, setOpen] = useState(false);
   return (
     <>
-     <ModalVideo
+      <ModalVideo
         channel="youtube"
         autoplay
         isOpen={isOpen}
         videoId="oqNZOOWF8qM"
         onClose={() => setOpen(false)}
       />
-    
-    <section className="pt-40 js-pin-container">
+
+      <section className="pt-40 js-pin-container">
         <div className="container">
           <div className="row y-gap-30">
             <div className="col-xl-8">
@@ -37,7 +35,7 @@ export default function TourGallery({tour}) {
                     prevEl: ".js-img-prev",
                   }}
                 >
-                  {tour?.slideImg?.map((slide, i) => (
+                  {tour?.imageURL?.map((slide, i) => (
                     <SwiperSlide key={i}>
                       <Image
                         width={451}
@@ -53,7 +51,7 @@ export default function TourGallery({tour}) {
                 </Swiper>
 
                 <Gallery>
-                  {tour?.slideImg?.map((slide, i) => (
+                  {tour?.imageURL?.map((slide, i) => (
                     <div
                       className="absolute px-10 py-10 col-12 h-full d-flex justify-end items-end z-2 bottom-0 end-0"
                       key={i}
@@ -113,5 +111,5 @@ export default function TourGallery({tour}) {
         {/* End container */}
       </section>
     </>
-  )
+  );
 }

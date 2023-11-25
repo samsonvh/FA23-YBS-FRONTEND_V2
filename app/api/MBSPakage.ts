@@ -41,3 +41,24 @@ export const getMBSPackageDetails = async ({ id }: { id: number }) => {
     throw error;
   }
 };
+
+export const createMBSPackages = async (packageDetails) => {
+  try {
+    const res = await fetch(`${process.env.SERVER}/membership-packages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-version": "1.0",
+      },
+      body: JSON.stringify(packageDetails),
+    });
+    if (res.ok) {
+      console.log("Membership package created successfully");
+    } else {
+      console.error("Failed to create membership package");
+    }
+  } catch (error) {
+    console.error("Error when call API:", error.message);
+    throw error;
+  }
+};

@@ -8,26 +8,19 @@ const Authorize = () => {
   const { data: session, status } = useSession();
   useEffect(() => {
     if (status === "authenticated") {
+      console.log("autho:", session);
       if (!session) {
-        // console.log(status);
         signOut({ callbackUrl: "/login" });
       } else {
         if (session.user.role) {
           switch (session.user.role) {
             case "ADMIN":
-              redirect("/admin/dashboard");
-            // setRole("/admin");
-            // break;
+              redirect("/admin");
             case "COMPANY":
               redirect("/company");
-            // setRole("/company");
-            // break;
-            default:
+            case "MEMBER":
               redirect("/");
-            // setRole("/");
-            // break;
           }
-          // redirect(role);
         }
         signOut({ callbackUrl: "/login" });
       }

@@ -15,13 +15,28 @@ import Link from "next/link";
 import Itinerary from "@/components/tour-single/itinerary";
 import ImportantInfo from "@/components/tour-single/ImportantInfo";
 import TourGallery from "@/components/tour-single/TourGallery";
-
+import { getRouteDetails } from "@/app/api/routes";
 export const metadata = {
   title: "Tour Single || GoTrip - Travel & Tour React NextJS Template",
   description: "GoTrip - Travel & Tour React NextJS Template",
 };
 
-const TourSingleV1Dynamic = ({ params }) => {
+const TourSingleV1Dynamic = async ({ params }: { params: any }) => {
+  let details;
+  try {
+    console.log(params);
+
+    // Ensure that params.id is defined before fetching data
+    if (!params) {
+      console.log(params);
+      throw new Error("Invalid id");
+    }
+
+    details = await getRouteDetails(params);
+    console.log(details);
+  } catch (error) {
+    console.error("Error fetching yacht details:", error.message);
+  }
   const id = params.id;
   const tour = toursData.find((item) => item.id == id) || toursData[0];
 
@@ -42,7 +57,7 @@ const TourSingleV1Dynamic = ({ params }) => {
         <div className="container">
           <div className="row y-gap-20 justify-between items-end">
             <div className="col-auto">
-              <h1 className="text-30 fw-600">{tour?.title}</h1>
+              <h1 className="text-30 fw-600">{details?.name}</h1>
               <div className="row x-gap-20 y-gap-20 items-center pt-10">
                 <div className="col-auto">
                   <div className="d-flex items-center">
@@ -70,7 +85,7 @@ const TourSingleV1Dynamic = ({ params }) => {
                       <div className="d-flex x-gap-5 items-center">
                         <i className="icon-placeholder text-16 text-light-1"></i>
                         <div className="text-15 text-light-1">
-                          {tour?.location}
+                          {details?.destination}
                         </div>
                       </div>
                     </div>
@@ -114,7 +129,7 @@ const TourSingleV1Dynamic = ({ params }) => {
       </section>
       {/* End gallery grid wrapper */}
 
-      <TourGallery tour={tour} />
+      <TourGallery tour={details} />
 
       {/* End single page content */}
 

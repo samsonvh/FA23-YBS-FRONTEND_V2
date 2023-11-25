@@ -8,13 +8,14 @@ const SidebarRight = ({ tour }) => {
           <div className="text-14 text-light-1">
             From{" "}
             <span className="text-20 fw-500 text-dark-1 ml-5">
-              US${tour?.price}
+              {/* US${tour?.price} */}
+              500US$
             </span>
           </div>
           {/* End div */}
 
           <div className="row y-gap-20 pt-30">
-            <FilterBox />
+            <FilterBox tour={tour} />
           </div>
           {/* End div */}
 

@@ -16,10 +16,10 @@ const PopularDestinations = () => {
       try {
         const data = await getAllRoutes();
         setTourList(data.data);
-        setPageCount(data.pageCount);
-        setPageIndex(data.pageIndex);
-        setPageSize(data.pageSize);
-        setTotalItem(data.totalItem);
+        // setPageCount(data.pageCount);
+        // setPageIndex(data.pageIndex);
+        // setPageSize(data.pageSize);
+        // setTotalItem(data.totalItem);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -92,7 +92,7 @@ const PopularDestinations = () => {
                   <h4 className="text-26 md:text-20 lh-13 text-white mb-20">
                     {item.destination}
                   </h4>
-                  <Link href={`/destinations/${item.id}`}>
+                  <Link href={`/tours/${item.id}`}>
                     <button className="button col-12 h-60 -blue-1 bg-white text-dark-1">
                       Discover
                     </button>

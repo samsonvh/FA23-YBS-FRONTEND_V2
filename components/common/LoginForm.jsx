@@ -1,8 +1,25 @@
+"use client";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-
+import { useEffect, useState } from "react";
 const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: true,
+        callbackUrl: "/authorize",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error.message);
+    }
+  };
   return (
-    <form className="row y-gap-20">
+    <form onSubmit={(e) => handleFormSubmit(e)} className="row y-gap-20">
       <div className="col-12">
         <h1 className="text-22 fw-500">Welcome back</h1>
         <p className="mt-10">
@@ -16,7 +33,12 @@ const LoginForm = () => {
 
       <div className="col-12">
         <div className="form-input ">
-          <input type="text" required />
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
           <label className="lh-1 text-14 text-light-1">Email</label>
         </div>
       </div>
@@ -24,7 +46,12 @@ const LoginForm = () => {
 
       <div className="col-12">
         <div className="form-input ">
-          <input type="password" required />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
           <label className="lh-1 text-14 text-light-1">Password</label>
         </div>
       </div>

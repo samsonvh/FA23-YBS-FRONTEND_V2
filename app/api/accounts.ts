@@ -1,17 +1,13 @@
-import { authOptions } from "./auth/[...nextauth]/route";
-import { getServerSession } from "next-auth/next";
+import { getCurrentSession } from "@/app/api/session";
 export const getAllAccounts = async () => {
+  const session = await getCurrentSession();
+  const accessToken = session.token.accessToken;
   try {
-    // const session = await getServerSession(authOptions);
-    // console.log("hihi", session);
-    const res = await fetch(
-      `${process.env.SERVER}/accounts`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${session.token}`,
-      //   },
-      // }
-    );
+    const res = await fetch(`${process.env.SERVER}/accounts`, {
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    });
     const data = await res.json();
     console.log(data);
     return data;
@@ -23,16 +19,16 @@ export const getAllAccounts = async () => {
 
 export const getAccountDetails = async ({ id }: { id: number }) => {
   try {
-    // const session = await getServerSession();
-    // console.log(session);
-    const res = await fetch(
-      `${process.env.SERVER}/accounts/${id}`
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${session.token}`,
-      //   },
-      // }
-    );
+    const session = await getCurrentSession();
+    const accessToken = session.token.accessToken;
+
+    const res = await fetch(`${process.env.SERVER}/accounts/${id}`, {
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+      cache: "no-cache",
+    });
+
     const data = await res.json();
     console.log(data);
     return data;

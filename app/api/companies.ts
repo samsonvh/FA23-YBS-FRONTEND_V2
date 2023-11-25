@@ -26,7 +26,10 @@ export const getCompanyDetails = async ({ id }: { id: number }) => {
     // const session = await getServerSession();
     // console.log(session);
     const res = await fetch(
-      `${process.env.SERVER}/companies/${id}`
+      `${process.env.SERVER}/companies/${id}`,
+      {
+        cache: "no-cache",
+      }
       // , {
       //   headers: {
       //     Authorization: `Bearer ${session.token}`,

@@ -1,6 +1,6 @@
 "use client";
 import Pagination from "../../common/Pagination";
-import { getAllMBSPackages } from "@/app/api/membershipPakage";
+import { getAllMBSPackages } from "@/app/api/MBSPakage";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";

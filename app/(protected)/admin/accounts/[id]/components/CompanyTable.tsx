@@ -29,41 +29,42 @@ const CompanyTable = ({ params }: { params: any }) => {
           <tbody>
             <tr>
               <td>
-                {/* <Image
+                <Image
                   width={50}
                   height={50}
                   src={params.logo}
                   alt="image"
                   className="size-50 rounded-22 object-cover"
-                /> */}
+                />
               </td>
               <td className="text-blue-1 fw-500">{params.username}</td>
               <td>{params.name}</td>
               <td>{params.email}</td>
               <td>{params.address}</td>
               <td>{params.hotLine}</td>
-              <td>
-                {params?.facebookURL && (
+              {params?.facebookURL && (
+                <td>
                   <Link
                     className="tw-hover:text-blue-1"
                     href={params?.facebookURL}
                   >
                     {params?.facebookURL}
                   </Link>
-                )}
-              </td>
-              <td>
-                {params?.instagramURL && (
+                </td>
+              )}
+              {params?.instagramURL && (
+                <td>
                   <Link href={params?.instagramURL}>
                     {params?.instagramURL}
                   </Link>
-                )}
-              </td>
-              <td>
-                {params?.linkedInURL && (
+                </td>
+              )}
+
+              {params?.linkedInURL && (
+                <td>
                   <Link href={params?.linkedInURL}>{params?.linkedInURL}</Link>
-                )}
-              </td>
+                </td>
+              )}
               <td>
                 {params.contractStartDate &&
                   new Date(params.contractStartDate).toLocaleDateString(

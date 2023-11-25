@@ -1,5 +1,4 @@
-
-'use client'
+"use client";
 
 import Image from "next/image";
 import React, { useState } from "react";
@@ -12,7 +11,6 @@ const AvatarUploader = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-
     if (!file) {
       setError("Please select an image.");
       setSuccess(false);
