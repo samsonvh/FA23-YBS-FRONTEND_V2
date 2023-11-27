@@ -1,11 +1,39 @@
 import NextAuth, { DefaultUser, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import {
+  credentialsLoginHandler,
+  googleLoginHandler,
+} from "@functions/handlers/authenticateHandler";
 
 export const authOptions: NextAuthOptions = {
+  pages: { signIn: "/login" },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENTID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+    }),
+    CredentialsProvider({
+      type: "credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        let authData = null;
+        const { email, password } = credentials;
+        if (email && password) {
+          authData = await credentialsLoginHandler({ email, password });
+        }
+        return authData;
+      },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET as string,
@@ -13,39 +41,40 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      await fetch("http://localhost:5006/api/authentication/google-login", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json;",
-        },
-        body: JSON.stringify(account.id_token),
-      }).then(async (response) => {
-        const data = await response.json();
-        account.access_token = data.accessToken;
-        account.refresh_token = data.refreshToken;
-        user.name = data.userName;
-        user.image = data.imgUrl;
-        user.role = data.role;
-      });
-      return true;
-    },
-    async jwt({ token, account, user }) {
-      if (account) {
-        token.accessToken = account.access_token;
-        token.refreshToken = account.refresh_token;
+    async signIn({ user, account }) {
+      let isSigned = true;
+      try {
+        if (account) {
+          const provider = account.provider;
+          switch (provider) {
+            case "google":
+              const authData = await googleLoginHandler({
+                idToken: account.id_token,
+              });
+              const newUser = Object.assign(user, authData);
+              break;
+          }
+        } else {
+          isSigned = false;
+        }
+      } catch (error) {
+        console.error("Google login error:", error);
+        isSigned = false;
+      } finally {
+        return isSigned;
       }
-      if (user) {
-        token.name = user.name;
-        token.picture = user.image;
+    },
+    async jwt({ token, user, account }) {
+      if (account) {
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
         token.role = user.role;
+        token.picture = user.image;
+        token.name = user.userName;
       }
       return token;
     },
-    async session({ session, token }) {
-      session.user.name = token.name;
-      session.user.image = token.picture;
-      session.user.role = token.role;
+    async session({ session, token, user }) {
       session.token = token;
       return session;
     },

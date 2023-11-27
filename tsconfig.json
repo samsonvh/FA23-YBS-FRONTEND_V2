@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@functions/*": ["functions/*"],
+      "@components/*": ["components/*"],
+      "@app/*": ["app/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
