@@ -13,6 +13,7 @@ import "../styles/index.scss";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import NextAuthProvider from "@/components/NextAuthProvider";
+import StyledComponentsRegistry from "@/lib/registry";
 
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
@@ -44,7 +45,7 @@ export default function RootLayout({ children }) {
         <main>
           <NextAuthProvider>
             <Provider store={store}>
-              {children}
+              <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
               <SrollTop />
             </Provider>
           </NextAuthProvider>

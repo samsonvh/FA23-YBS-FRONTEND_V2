@@ -4,6 +4,7 @@ import Footer from "../../common/Footer";
 import Link from "next/link";
 import { getCompanyDetails } from "@/app/api/companies";
 import Table from "./components/Table";
+import BackButton from "@/components/button/BackButton";
 
 const Company = async ({ params }: { params: any }) => {
   let details;
@@ -50,7 +51,13 @@ const Company = async ({ params }: { params: any }) => {
             {/* End .row */}
 
             <Table params={details} />
-
+            <div className="d-flex py-20 flex-row-reverse">
+              <BackButton
+                className={"button h-50 px-24 -blue-1 bg-blue-1-05 text-blue-1"}
+              >
+                Go Back
+              </BackButton>
+            </div>
             <Footer />
           </div>
           {/* End .dashboard__content */}

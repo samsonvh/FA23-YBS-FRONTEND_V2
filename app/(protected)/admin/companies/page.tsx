@@ -37,7 +37,8 @@ const Companies = () => {
                   href="/admin/add-company"
                   className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
                 >
-                  Add Company <div className="icon-arrow-top-right ml-15"></div>
+                  Add Companies{" "}
+                  <div className="icon-arrow-top-right ml-15"></div>
                 </Link>
               </div>
             </div>

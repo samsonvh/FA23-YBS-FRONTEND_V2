@@ -28,20 +28,21 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials.email || !credentials.password) return null;
         try {
-          const res = await fetch(
-            `${process.env.SERVER}/authentication/login`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "x-api-version": "1.0",
-              },
-              body: JSON.stringify({
-                email: credentials?.email,
-                password: credentials?.password,
-              }),
-            }
-          );
+          const url =
+            process.env.BACKEND_HOST +
+            process.env.API_VERSION +
+            "/authentication/login";
+          const res = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-version": "1.0",
+            },
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+            }),
+          });
           user = await res.json();
           console.log("sign in", user);
           if (!user.error) {

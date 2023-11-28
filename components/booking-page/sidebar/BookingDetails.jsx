@@ -15,7 +15,7 @@ const BookingDetails = ({ id }) => {
       }
     };
     fetchData();
-  }, [B]);
+  }, []);
 
   return (
     <div className="px-30 py-30 border-light rounded-4">

@@ -1,5 +1,4 @@
-
-'use client'
+"use client";
 
 import { useState } from "react";
 
@@ -10,7 +9,7 @@ const BannerUploader = () => {
   const handleFileUpload = (event) => {
     const fileList = event.target.files;
     const newImages = [];
-    const maxSize = 800; // in pixels
+    // const maxSize = 800; // in pixels
 
     for (let i = 0; i < fileList.length; i++) {
       const file = fileList[i];
@@ -19,13 +18,7 @@ const BannerUploader = () => {
       reader.onloadend = () => {
         const img = new Image();
         img.onload = () => {
-          if (img.width > maxSize || img.height > maxSize) {
-            setError(
-              `Image ${file.name} exceeds the maximum size of ${maxSize}px.`
-            );
-          } else if (
-            !["image/png", "image/jpeg"].includes(file.type.toLowerCase())
-          ) {
+          if (!["image/png", "image/jpeg"].includes(file.type.toLowerCase())) {
             setError(
               `Image ${file.name} is not a valid file type. Only PNG and JPEG are allowed.`
             );

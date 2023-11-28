@@ -1,6 +1,7 @@
 "use client";
 import ActionsButton from "../components/ActionsButton";
 import { createMBSPackages } from "@/app/api/MBSPakage";
+import BackButton from "@/components/button/BackButton";
 import { useState } from "react";
 const Location = () => {
   const [name, setPackageName] = useState("");
@@ -103,9 +104,11 @@ const Location = () => {
               </button>
             </div>
             <div className="col-auto">
-              <button className="button h-50 px-24 -blue-1 bg-blue-1-05 text-blue-1">
+              <BackButton
+                className={"button h-50 px-24 -blue-1 bg-blue-1-05 text-blue-1"}
+              >
                 Cancel
-              </button>
+              </BackButton>
             </div>
           </div>
         </div>

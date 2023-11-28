@@ -1,5 +1,4 @@
-import { authOptions } from "./auth/[...nextauth]/route";
-import { getServerSession } from "next-auth/next";
+import { getCurrentSession } from "./session";
 export const getAllCompanies = async () => {
   try {
     // const session = await getServerSession(authOptions);
@@ -41,6 +40,34 @@ export const getCompanyDetails = async ({ id }: { id: number }) => {
     return data;
   } catch (error) {
     console.error("Error fetching data:", error.message);
+    throw error;
+  }
+};
+
+export const createCompanies = async (companyDetails) => {
+  const session = await getCurrentSession();
+  const accessToken = session.token.accessToken;
+  const formData = new FormData();
+
+  Object.keys(companyDetails).forEach((key) => {
+    formData.append(key, companyDetails[key]);
+  });
+  try {
+    const res = await fetch(`${process.env.SERVER}/companies`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "multipart/form-data",
+      },
+      body: formData,
+    });
+    if (res.ok) {
+      console.log("Company created successfully");
+    } else {
+      console.error("Failed to create company");
+    }
+  } catch (error) {
+    console.error("Error when call API:", error.message);
     throw error;
   }
 };

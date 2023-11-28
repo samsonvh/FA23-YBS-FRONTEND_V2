@@ -1,5 +1,6 @@
 import { authOptions } from "./auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
+import { getCurrentSession } from "./session";
 export const getAllMBSPackages = async () => {
   try {
     // const session = await getServerSession(authOptions);
@@ -43,10 +44,13 @@ export const getMBSPackageDetails = async ({ id }: { id: number }) => {
 };
 
 export const createMBSPackages = async (packageDetails) => {
+  const session = await getCurrentSession();
+  const accessToken = session.token.accessToken;
   try {
     const res = await fetch(`${process.env.SERVER}/membership-packages`, {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
         "x-api-version": "1.0",
       },
